@@ -24,7 +24,7 @@
 	"license": "GPL-3.0",
 	"keywords": [],
 	"devDependencies": {
-		"electron": "^1.8.4",
+		"electron": "^1.8.8",
 		"electron-builder": "^20.8.1"
 	},
 	"build": {
