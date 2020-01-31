@@ -2,24 +2,30 @@
 	"description": "Adds Discord Rich Presence to Firefox",
 	"manifest_version": 2,
 	"name": "discord-rich-presence",
-	"version": "1.0.1",
+	"version": "2.0.1",
 	"icons": {
 		"48": "assets/icon-48.png"
 	},
 	"permissions": [
 		"<all_urls>",
 		"tabs",
-		"http://localhost:1337/*"
+		"http://localhost:6553/*"
 	],
 	"background": {
 		"scripts": [
 			"background.js"
 		]
 	},
+	"browser_action": {
+		"default_icon": {
+		  "96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
+		  "36": "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png"
+		},
+		"default_title": "Discord RP"
+	},
 	"applications": {
 		"gecko": {
-			"id": "discord-rich-presence@luxvacuos.net",
-			"strict_min_version": "42.0"
+			"id": "discord-ff-rp@disilla.org"
 		}
 	}
 }

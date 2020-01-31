@@ -1,6 +1,7 @@
 addon/web-ext-artifacts/*
 .web-extension-id
 dist/
+build.sh
 
 # Created by https://www.gitignore.io/api/node
 

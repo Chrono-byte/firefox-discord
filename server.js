@@ -42,7 +42,7 @@ app.post('/setRP', (req, res) => {
 	res.end();
 });
 
-var server = app.listen(1337, () => console.log('Express port: 1337'));
+var server = app.listen(6553, () => console.log('Express port: 6553'));
 
 exports.server = server;
 
