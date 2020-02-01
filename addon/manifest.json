@@ -1,10 +1,11 @@
 {
-	"description": "Adds Discord Rich Presence to Firefox",
 	"manifest_version": 2,
-	"name": "discord-rich-presence",
-	"version": "2.0.1",
+	"name": "Discord RPC for FF",
+	"description": "Adds Discord Rich Presence to Firefox",
+	"version": "2.0.3",
 	"icons": {
-		"48": "assets/icon-48.png"
+		"96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
+		"36": "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png"
 	},
 	"permissions": [
 		"<all_urls>",
@@ -21,7 +22,7 @@
 		  "96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
 		  "36": "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png"
 		},
-		"default_title": "Discord RP"
+		"default_title": "Discord RP Toggle"
 	},
 	"applications": {
 		"gecko": {
