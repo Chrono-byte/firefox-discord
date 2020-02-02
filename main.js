@@ -4,23 +4,34 @@ const express = require("./server.js");
 
 // Electron
 
-let tray = null;
+let tray;
 
 app.on("ready", () => {
-	const contextMenu = Menu.buildFromTemplate([
+	let contextMenu = Menu.buildFromTemplate([
 		{
-			label : "Quit",
-			click : () => {
+			label: "FD RPC", 
+			enabled: "false", 
+			icon: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
+		},
+		{type: "separator" },
+		{
+			label: "Quit",
+			click: () => {
 				express.client.destroy();
 				express.server.close();
 				app.quit();
 			}
-		},
+		}
 	]);
 	const iconPath = path.join(__dirname, "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png");
 	const trayIcon = nativeImage.createFromPath(iconPath);
+
 	tray = new Tray(trayIcon);
 
 	tray.setToolTip("Firefox Discord RPC");
 	tray.setContextMenu(contextMenu);
+
+	setInterval(() => {
+		console.log("Working");
+	}, 100000/16);
 });

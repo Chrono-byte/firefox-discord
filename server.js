@@ -38,10 +38,10 @@ const server = app.listen(6553, () => console.log("Express port: 6553"));
 exports.server = server;
 
 client.on("ready", () => {
-	console.log("Logged in with RPC!");
+	console.log("RPC Client Ready");
 	setRP("normal", "Idle", "Firefox");
 });
 
-client.login("433007687819853824").catch(console.error);
+client.login("673201865772761098").catch(console.error);
 
 exports.client = client;

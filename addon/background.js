@@ -1,8 +1,10 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable no-undef */
 var enabled = true;
 
-function onError(error) {
-	console.log(`Error: ${error}`);
-}
+// function onError(error) {
+// 	console.log(`Error: ${error}`);
+// }
 
 function isDisabled() {
 	if (enabled === true) return false;
@@ -18,7 +20,14 @@ function getTabJson(currentTab) {
 }
 
 function sendData(tab) {
-	if(isDisabled() === true) {
+	if(isDisabled() == false) {
+		if (tab.incognito)
+			return;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "http://localhost:6553/setRP", true);
+		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+		xhr.send(getTabJson(tab));
+	} else if(isDisabled() === true) {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
@@ -26,13 +35,6 @@ function sendData(tab) {
 			tabURL : "https://github.com/Chronomly/firefox-discord",
 			tabTitle : "Paused",
 		});
-	} else if(isDisabled() == false) {
-		if (tab.incognito)
-			return;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://localhost:6553/setRP", true);
-		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(getTabJson(tab));
 	}
 }
 function handleActivated(activeInfo) {
@@ -42,6 +44,7 @@ function handleActivated(activeInfo) {
 	});
 }
 
+// eslint-disable-next-line no-unused-vars
 function handleUpdated(tabId, changeInfo, tabInfo) {
 	var tabq = browser.tabs.get(tabId);
 	tabq.then(function(tab) {
