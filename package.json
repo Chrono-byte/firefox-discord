@@ -1,6 +1,6 @@
 {
 	"name": "fd-rpc",
-	"version": "2.0.1",
+	"version": "2.0.4",
 	"description": "Firefox Discord RPC",
 	"keywords": [],
 	"repository": {
@@ -32,8 +32,12 @@
 	"build": {
 		"appId": "org.disilla.fd-rpc",
 		"linux": {
-			"maintainer": "Chronomly",
+			"target": "rpm",
+			"maintainer": "chronomly@gmail.com",
 			"category": "Utility"
+		},
+		"windows": {
+			"target": "msi"
 		},
 		"files": [
 			"**/*",
