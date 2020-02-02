@@ -36,7 +36,7 @@
 			"maintainer": "chronomly@gmail.com",
 			"category": "Utility"
 		},
-		"windows": {
+		"win": {
 			"target": "msi"
 		},
 		"files": [
