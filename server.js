@@ -39,9 +39,9 @@ exports.server = server;
 
 client.on("ready", () => {
 	console.log("RPC Client Ready");
-	setRP("normal", "Idle", "Firefox");
+	setRP("normal", "Idle", "No activity yet");
 });
 
-client.login("673201865772761098").catch(console.error);
+client.login({ clientId: "673201865772761098", clientSecret: "abcdef123" }).catch(console.error);
 
 exports.client = client;
