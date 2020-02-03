@@ -1,4 +1,5 @@
 # firefox-discord
+![Build/release](https://github.com/Chronomly/firefox-discord/workflows/Build/release/badge.svg)
 
 Finally, a real use for Discord Rich Presence, Allowing anyone on Discord to see what you are looking at in Firefox!
 
