@@ -22,4 +22,4 @@ jobs:
       - name: ESLint
         run: |
           yarn --dev
-          yarn lint --if-present
+          yarn lint
