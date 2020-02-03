@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build Application",
+        "type": "shell",
+        "command": "yarn dist",
+        "windows": {
+          "command": "yarn dist"
+        },
+        "group": "build",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "Lint code",
+        "type": "shell",
+        "command": "yarn lint:fix",
+        "windows": {
+          "command": "yarn lint:fix"
+        },
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      }
+    ]
+  }
