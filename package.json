@@ -1,13 +1,13 @@
 {
 	"name": "fd-rpc",
-	"version": "2.0.4",
+	"version": "2.0.6",
 	"description": "Firefox Discord RPC",
 	"keywords": [],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Chronomly/firefox-discord"
 	},
-	"license": "GPL-3.0",
+	"license": "MPL-2.0",
 	"author": "Chronomly",
 	"main": "main.js",
 	"scripts": {
@@ -18,7 +18,7 @@
 		"start": "electron ."
 	},
 	"dependencies": {
-		"discord-rpc": "^3.0.0-beta.6",
+		"discord-rpc": "^3.1.0",
 		"express": "^4.16.2",
 		"register-scheme": "github:devsnek/node-register-scheme"
 	},
@@ -31,7 +31,7 @@
 	"build": {
 		"appId": "org.disilla.fd-rpc",
 		"linux": {
-			"target": "rpm",
+			"target": "AppImage",
 			"maintainer": "chronomly@gmail.com",
 			"category": "Utility"
 		},
