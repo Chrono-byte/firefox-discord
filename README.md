@@ -15,7 +15,7 @@ Finally, a real use for Discord Rich Presence, Allowing anyone on Discord to see
 * **Grey** - *Main Developer* - [GitHub](https://github.com/chronomly)
 * **Guerra24** - *Developer* - [GitHub](https://github.com/Guerra24)
 
-Also, check the list of [contributors](https://github.com/Chronomly/Represent/contributors) who did minor contributions.
+Also, check the list of [contributors](https://github.com/Chronomly/firefox-discord/contributors) who did minor contributions.
 
 ## License
 
