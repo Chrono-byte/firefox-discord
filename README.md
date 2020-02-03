@@ -13,7 +13,7 @@ Finally, a real use for Discord Rich Presence, Allowing anyone on Discord to see
 ## Authors
 
 * **Grey** - *Main Developer* - [GitHub](https://github.com/chronomly)
-* **Guerra24** - *Developer* - [Guerra24](https://github.com/Guerra24)
+* **Guerra24** - *Developer* - [GitHub](https://github.com/Guerra24)
 
 Also, check the list of [contributors](https://github.com/Chronomly/Represent/contributors) who did minor contributions.
 
