@@ -11,7 +11,7 @@ app.on("ready", () => {
 		{
 			label: "FD RPC", 
 			enabled: "false", 
-			icon: "assets/chat_bubble-24px.svg"
+			icon: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
 		},
 		{
 			label: "By Chronomly", 

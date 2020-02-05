@@ -1,6 +1,6 @@
 {
 	"name": "fd-rpc",
-	"version": "2.0.6",
+	"version": "2.0.7",
 	"description": "Firefox Discord RPC",
 	"keywords": [],
 	"repository": {
@@ -15,7 +15,8 @@
 		"lint": "eslint . --ext js,json",
 		"lint:fix": "eslint . --ext js,json --fix",
 		"pack": "electron-builder --dir",
-		"start": "electron ."
+		"start": "electron .",
+		"dist:addon": "./build.sh"
 	},
 	"dependencies": {
 		"discord-rpc": "^3.1.0",
@@ -40,7 +41,7 @@
 		},
 		"files": [
 			"**/*",
-			"assets/**/**/**",
+			"assets/**/**/**/**",
 			"!addon/**/*",
 			"!.clang-format",
 			"!README.md"
