@@ -12,11 +12,11 @@
 	"main": "main.js",
 	"scripts": {
 		"dist": "electron-builder",
+		"dist:addon": "./build.sh",
 		"lint": "eslint . --ext js,json",
 		"lint:fix": "eslint . --ext js,json --fix",
 		"pack": "electron-builder --dir",
-		"start": "electron .",
-		"dist:addon": "./build.sh"
+		"start": "electron ."
 	},
 	"dependencies": {
 		"discord-rpc": "^3.1.0",
@@ -32,7 +32,9 @@
 	"build": {
 		"appId": "org.disilla.fd-rpc",
 		"linux": {
-			"target": ["AppImage"],
+			"target": [
+				"AppImage"
+			],
 			"maintainer": "chronomly@gmail.com",
 			"category": "Utility"
 		},

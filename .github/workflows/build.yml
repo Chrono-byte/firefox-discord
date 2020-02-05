@@ -1,4 +1,4 @@
-name: Build/release
+ame: Build/release
 
 on: push
 
