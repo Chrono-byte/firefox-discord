@@ -2,8 +2,6 @@ const path = require("path");
 const { app, nativeImage, Menu, Tray } = require("electron");
 const express = require("./server.js"); 
 
-// Electron
-
 let tray;
 
 app.on("ready", () => {

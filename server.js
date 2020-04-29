@@ -43,5 +43,3 @@ client.on("ready", () => {
 });
 
 client.login({ clientId: "673201865772761098", clientSecret: "abcdef123" }).catch(console.error);
-
-exports.client = client;

@@ -32,7 +32,9 @@
 	"build": {
 		"appId": "org.disilla.fd-rpc",
 		"linux": {
-			"target": ["AppImage"],
+			"target": [
+				"AppImage"
+			],
 			"maintainer": "chronomly@gmail.com",
 			"category": "Utility"
 		},
