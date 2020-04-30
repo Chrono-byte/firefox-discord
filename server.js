@@ -35,6 +35,7 @@ app.post("/setRP", (req, res) => {
 
 const server = app.listen(6553, () => console.log("Express port: 6553"));
 
+exports.client = client;
 exports.server = server;
 
 client.on("ready", () => {
