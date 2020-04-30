@@ -1,7 +1,7 @@
 {
 	"name": "fd-rpc",
 	"version": "2.1.0",
-	"description": "Firefox Discord RPC",
+	"description": "Discord RPC for Firefox",
 	"keywords": [],
 	"repository": {
 		"type": "git",
