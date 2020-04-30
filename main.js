@@ -5,11 +5,12 @@ const express = require("./server.js");
 let tray;
 
 app.on("ready", () => {
+
 	let contextMenu = Menu.buildFromTemplate([
 		{
-			label: "FD RPC", 
+			label: "Discord RPC for Firefox", 
 			enabled: "false", 
-			icon: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
+			// icon: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
 		},
 		{
 			label: "By Chronomly", 
@@ -30,7 +31,9 @@ app.on("ready", () => {
 
 	tray = new Tray(trayIcon);
 
-	tray.setToolTip("Firefox Discord RPC");
+	tray.setToolTip("Discord RPC for Firefox");
 	tray.setContextMenu(contextMenu);
+
+	console.log("Electron App Ready");
 
 });
