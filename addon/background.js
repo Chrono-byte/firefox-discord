@@ -31,10 +31,10 @@ function sendData(tab) {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send({
+		xhr.send(JSON.stringify({
 			tabURL : "https://github.com/Chronomly/firefox-discord",
 			tabTitle : "Paused",
-		});
+		}));
 	}
 }
 function handleActivated(activeInfo) {

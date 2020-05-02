@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Discord RPC for FF",
 	"description": "Adds Discord Rich Presence to Firefox",
-	"version": "2.0.6",
+	"version": "2.0.7",
 	"icons": {
 		"96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
 		"36": "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png"
