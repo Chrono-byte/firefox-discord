@@ -21,4 +21,8 @@ Also, check the list of [contributors](https://github.com/Chronomly/firefox-disc
 
 This project is licensed under the MPL 2.0 License - see the [license](https://github.com/Chronomly/firefox-discord/blob/master/LICENSE) file for details.
 
+## Contributing
+
+Eventually:tm:
+
 > Made by disilla.org
