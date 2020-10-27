@@ -9,7 +9,7 @@
 	},
 	"license": "MPL-2.0",
 	"author": "Chronomly",
-	"main": "main.js",
+	"main": "src/main.js",
 	"scripts": {
 		"dist": "electron-builder",
 		"dist:addon": "./build.sh",
