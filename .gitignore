@@ -1,8 +1,3 @@
-addon/web-ext-artifacts/*
-.web-extension-id
-dist/
-build.sh
-
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
@@ -68,5 +63,15 @@ typings/
 # End of https://www.gitignore.io/api/node
 
 # Custom ignores
+
+# Firefox Shit
+addon/web-ext-artifacts/*
+.web-extension-id
+
+# Desktop Build
+dist/*
+build.sh
+
+# Chrome Shit
 addon.pem
 addon.crx
