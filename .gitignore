@@ -64,14 +64,12 @@ typings/
 
 # Custom ignores
 
-# Firefox Shit
-addon/web-ext-artifacts/*
+# Firefox/Chrome Shit
+addon-*/web-ext-artifacts/*
 .web-extension-id
-
-# Desktop Build
-dist/*
-build.sh
-
-# Chrome Shit
 addon.pem
 addon.crx
+
+# Build Stuff
+dist/*
+build.sh
