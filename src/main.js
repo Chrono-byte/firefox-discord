@@ -23,6 +23,7 @@ app.on("ready", () => {
 				express.client.destroy();
 				express.server.close();
 				app.quit();
+				console.log("Exited cleanly");
 			}
 		}
 	]);
