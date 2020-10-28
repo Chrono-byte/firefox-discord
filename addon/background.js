@@ -37,6 +37,7 @@ function sendData(tab) {
 		}));
 	}
 }
+
 function handleActivated(activeInfo) {
 	var tabq = browser.tabs.get(activeInfo.tabId);
 	tabq.then(function(tab) {
