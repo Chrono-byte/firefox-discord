@@ -13,34 +13,35 @@ function isDisabled() {
 
 function getTabJson(currentTab) {
 	var response = {
-		tabURL : currentTab.url,
-		tabTitle : currentTab.title,
+		tabURL: currentTab.url,
+		tabTitle: currentTab.title,
 	};
 	return JSON.stringify(response);
 }
 
 function sendData(tab) {
-	if(isDisabled() == false) {
-		if (tab.incognito)
-			return;
+	if (isDisabled() == false) {
+		if (tab.incognito) return;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		xhr.send(getTabJson(tab));
-	} else if(isDisabled() === true) {
+	} else if (isDisabled() === true) {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(JSON.stringify({
-			tabURL : "https://github.com/Chronomly/firefox-discord",
-			tabTitle : "Paused",
-		}));
+		xhr.send(
+			JSON.stringify({
+				tabURL: "https://github.com/Chronomly/firefox-discord",
+				tabTitle: "Paused",
+			})
+		);
 	}
 }
 
 function handleActivated(activeInfo) {
 	var tabq = browser.tabs.get(activeInfo.tabId);
-	tabq.then(function(tab) {
+	tabq.then(function (tab) {
 		sendData(tab);
 	});
 }
@@ -48,20 +49,18 @@ function handleActivated(activeInfo) {
 // eslint-disable-next-line no-unused-vars
 function handleUpdated(tabId, changeInfo, tabInfo) {
 	var tabq = browser.tabs.get(tabId);
-	tabq.then(function(tab) {
-		if (tab.active)
-			sendData(tab);
+	tabq.then(function (tab) {
+		if (tab.active) sendData(tab);
 	});
 }
 
 function handleFocus(windowId) {
-	if (windowId < 0)
-		return;
+	if (windowId < 0) return;
 	var wq = browser.windows.get(windowId);
-	wq.then(function(win) {
+	wq.then(function (win) {
 		if (win.focused) {
-			var tabq = browser.tabs.query({active : true, currentWindow : true});
-			tabq.then(function(rtab) {
+			var tabq = browser.tabs.query({ active: true, currentWindow: true });
+			tabq.then(function (rtab) {
 				sendData(rtab[0]);
 			});
 		}
@@ -73,18 +72,18 @@ function handleClick() {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
-				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
-			}
+				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png",
+			},
 		});
-		return enabled = false;
-	} else if(enabled === false) {
+		return (enabled = false);
+	} else if (enabled === false) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
-				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
-			}
+				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
+			},
 		});
-		return enabled = true;
+		return (enabled = true);
 	}
 }
 

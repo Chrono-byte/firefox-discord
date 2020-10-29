@@ -35,7 +35,7 @@
 			"target": [
 				"AppImage"
 			],
-			"maintainer": "chronomly@gmail.com",
+			"maintainer": "me@disilla.org",
 			"category": "Utility"
 		},
 		"win": {
@@ -44,6 +44,7 @@
 		"files": [
 			"**/*",
 			"assets/**/**",
+			"src/**/**",
 			"!addon/**/*",
 			"!.clang-format",
 			"!README.md"
