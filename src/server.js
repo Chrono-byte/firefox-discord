@@ -1,25 +1,28 @@
 const express = require("express");
 const DiscordRPC = require("discord-rpc");
 
-const client = new DiscordRPC.Client({transport : "ipc"});
+const client = new DiscordRPC.Client({ transport: "ipc" });
 const app = express();
 
 app.use(express.json());
 
 function setRP(type, tabTitle, tabURL) {
-	if(tabURL.split("").length > 100) {
-		var r = /:\/\/(.[^/]+)/;
+	var r = /:\/\/(.[^/]+)/;
+	if (tabURL.split("").length > 100) {
 		tabURL = `https://${tabURL.match(r)[1]}`;
+	}
+	if (tabTitle.split("").length > 128) {
+		tabTitle = `https://${tabTitle.match(r)[1]}`;
 	}
 
 	if (type === "normal") {
 		client.setActivity({
-			details : tabTitle,
-			state : tabURL,
+			details: tabTitle,
+			state: tabURL,
 			// startTimestamp: moment(new Date()).add(parse("-0s"), "ms").toDate(),
-			largeImageKey : "firefox-large",
-			largeImageText : "Firefox",
-			instance : false,
+			largeImageKey: "firefox-large",
+			largeImageText: "Firefox",
+			instance: false,
 		});
 	}
 }
@@ -43,4 +46,6 @@ client.on("ready", () => {
 	setRP("normal", "Idle", "No activity yet");
 });
 
-client.login({ clientId: "673201865772761098", clientSecret: "abcdef123" }).catch(console.error);
+client
+	.login({ clientId: "673201865772761098", clientSecret: "abcdef123" })
+	.catch(console.error);
