@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 function setRP(type, tabTitle, tabURL) {
-	var r = /:\/\/(.[^/]+)/;
+	let r = /:\/\/(.[^/]+)/;
 	if (tabURL.split("").length > 100) {
 		tabURL = `https://${tabURL.match(r)[1]}`;
 	}

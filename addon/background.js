@@ -1,6 +1,6 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
-var enabled = true;
+let enabled = true;
 
 // function onError(error) {
 // 	console.log(`Error: ${error}`);
@@ -12,7 +12,7 @@ function isDisabled() {
 }
 
 function getTabJson(currentTab) {
-	var response = {
+	let response = {
 		tabURL: currentTab.url,
 		tabTitle: currentTab.title,
 	};
@@ -22,12 +22,12 @@ function getTabJson(currentTab) {
 function sendData(tab) {
 	if (isDisabled() == false) {
 		if (tab.incognito) return;
-		var xhr = new XMLHttpRequest();
+		let xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		xhr.send(getTabJson(tab));
 	} else if (isDisabled() === true) {
-		var xhr = new XMLHttpRequest();
+		let xhr = new XMLHttpRequest();
 		xhr.open("POST", "http://localhost:6553/setRP", true);
 		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 		xhr.send(
@@ -40,15 +40,14 @@ function sendData(tab) {
 }
 
 function handleActivated(activeInfo) {
-	var tabq = browser.tabs.get(activeInfo.tabId);
+	let tabq = browser.tabs.get(activeInfo.tabId);
 	tabq.then(function (tab) {
 		sendData(tab);
 	});
 }
 
-// eslint-disable-next-line no-unused-vars
-function handleUpdated(tabId, changeInfo, tabInfo) {
-	var tabq = browser.tabs.get(tabId);
+function handleUpdated(tabId) {
+	let tabq = browser.tabs.get(tabId);
 	tabq.then(function (tab) {
 		if (tab.active) sendData(tab);
 	});
@@ -56,10 +55,10 @@ function handleUpdated(tabId, changeInfo, tabInfo) {
 
 function handleFocus(windowId) {
 	if (windowId < 0) return;
-	var wq = browser.windows.get(windowId);
+	let wq = browser.windows.get(windowId);
 	wq.then(function (win) {
 		if (win.focused) {
-			var tabq = browser.tabs.query({ active: true, currentWindow: true });
+			let tabq = browser.tabs.query({ active: true, currentWindow: true });
 			tabq.then(function (rtab) {
 				sendData(rtab[0]);
 			});
