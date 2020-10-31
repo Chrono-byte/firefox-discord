@@ -6,36 +6,48 @@ let enabled = true;
 // 	console.log(`Error: ${error}`);
 // }
 
-function isDisabled() {
-	if (enabled === true) return false;
-	if (enabled === false) return true;
-}
-
-function getTabJson(currentTab) {
-	let response = {
-		tabURL: currentTab.url,
-		tabTitle: currentTab.title,
-	};
-	return JSON.stringify(response);
+async function postData(url, data) {
+	// Default options are marked with *
+	const response = await fetch(url, {
+		method: "POST",
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data)
+	});
+	return response.json();
 }
 
 function sendData(tab) {
-	if (isDisabled() == false) {
+	if (enabled) {
 		if (tab.incognito) return;
-		let xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://localhost:6553/setRP", true);
-		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(getTabJson(tab));
-	} else if (isDisabled() === true) {
-		let xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://localhost:6553/setRP", true);
-		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(
-			JSON.stringify({
-				tabURL: "https://github.com/Chronomly/firefox-discord",
-				tabTitle: "Paused",
-			})
-		);
+		// let xhr = new XMLHttpRequest();
+		// xhr.open("POST", "http://localhost:6553/setRP", true);
+		// xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+		// xhr.send();
+		postData("http://localhost:6553/setRP", {
+			tabURL: tab.url,
+			tabTitle: tab.title
+		}).then((data) => {
+			console.log(data); // JSON data parsed by `data.json()` call
+		});
+	} else if (!enabled) {
+		// let xhr = new XMLHttpRequest();
+		// xhr.open("POST", "http://localhost:6553/setRP", true);
+		// xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+		// xhr.send(
+		// 	JSON.stringify({
+		// 		tabURL: "https://github.com/Chronomly/firefox-discord",
+		// 		tabTitle: "Paused",
+		// 	})
+		// );
+		postData("http://localhost:6553/setRP", {
+			tabURL: "https://github.com/Chronomly/firefox-discord",
+			tabTitle: "Paused"
+		}).then((data) => {
+			console.log(data); // JSON data parsed by `data.json()` call
+		});
 	}
 }
 
@@ -67,22 +79,22 @@ function handleFocus(windowId) {
 }
 
 function handleClick() {
-	if (enabled === true) {
+	if (enabled) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
 				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png",
 			},
 		});
-		return (enabled = false);
-	} else if (enabled === false) {
+		return enabled = false;
+	} else if (!enabled) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
 				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
 			},
 		});
-		return (enabled = true);
+		return enabled = true;
 	}
 }
 
