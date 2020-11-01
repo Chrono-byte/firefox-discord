@@ -18,6 +18,10 @@ async function postData(url, data) {
 	return response.json();
 }
 
+function test(url, url) {
+	if(url === url) return true;
+}
+
 function sendData(tab) {
 	if (enabled) {
 		if (tab.incognito) return;
