@@ -18,9 +18,14 @@ async function postData(url, data) {
 	return response.json();
 }
 
-function test(url, url) {
+function testCompare(url, url) {
 	if(url === url) return true;
 }
+
+function testCompareNot(url, url) {
+	if(url !== url) return false;
+}
+
 
 function sendData(tab) {
 	if (enabled) {
