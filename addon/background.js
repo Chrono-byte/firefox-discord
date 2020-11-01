@@ -1,54 +1,51 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
-var enabled = true;
+let enabled = true;
 
 // function onError(error) {
 // 	console.log(`Error: ${error}`);
 // }
 
-function isDisabled() {
-	if (enabled === true) return false;
-	if (enabled === false) return true;
-}
-
-function getTabJson(currentTab) {
-	var response = {
-		tabURL: currentTab.url,
-		tabTitle: currentTab.title,
-	};
-	return JSON.stringify(response);
+async function postData(url, data) {
+	const response = await fetch(url, {
+		method: "POST",
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	});
+	return response.json();
 }
 
 function sendData(tab) {
-	if (isDisabled() == false) {
+	if (enabled) {
 		if (tab.incognito) return;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://localhost:6553/setRP", true);
-		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(getTabJson(tab));
-	} else if (isDisabled() === true) {
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "http://localhost:6553/setRP", true);
-		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		xhr.send(
-			JSON.stringify({
-				tabURL: "https://github.com/Chronomly/firefox-discord",
-				tabTitle: "Paused",
-			})
-		);
+		postData("http://localhost:6553/setRP", {
+			tabURL: tab.url,
+			tabTitle: tab.title,
+		}).then((data) => {
+			console.log(data);
+		});
+	} else if (!enabled) {
+		postData("http://localhost:6553/setRP", {
+			tabURL: "https://github.com/Chronomly/firefox-discord",
+			tabTitle: "Paused",
+		}).then((data) => {
+			console.log(data); // JSON data parsed by `data.json()` call
+		});
 	}
 }
 
 function handleActivated(activeInfo) {
-	var tabq = browser.tabs.get(activeInfo.tabId);
+	let tabq = browser.tabs.get(activeInfo.tabId);
 	tabq.then(function (tab) {
 		sendData(tab);
 	});
 }
 
-// eslint-disable-next-line no-unused-vars
-function handleUpdated(tabId, changeInfo, tabInfo) {
-	var tabq = browser.tabs.get(tabId);
+function handleUpdated(tabId) {
+	let tabq = browser.tabs.get(tabId);
 	tabq.then(function (tab) {
 		if (tab.active) sendData(tab);
 	});
@@ -56,10 +53,10 @@ function handleUpdated(tabId, changeInfo, tabInfo) {
 
 function handleFocus(windowId) {
 	if (windowId < 0) return;
-	var wq = browser.windows.get(windowId);
+	let wq = browser.windows.get(windowId);
 	wq.then(function (win) {
 		if (win.focused) {
-			var tabq = browser.tabs.query({ active: true, currentWindow: true });
+			let tabq = browser.tabs.query({ active: true, currentWindow: true });
 			tabq.then(function (rtab) {
 				sendData(rtab[0]);
 			});
@@ -68,7 +65,7 @@ function handleFocus(windowId) {
 }
 
 function handleClick() {
-	if (enabled === true) {
+	if (enabled) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
@@ -76,7 +73,7 @@ function handleClick() {
 			},
 		});
 		return (enabled = false);
-	} else if (enabled === false) {
+	} else if (!enabled) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",

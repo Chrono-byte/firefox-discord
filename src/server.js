@@ -1,5 +1,6 @@
 const express = require("express");
 const DiscordRPC = require("discord-rpc");
+const moment = require("moment");
 
 const client = new DiscordRPC.Client({ transport: "ipc" });
 const app = express();
@@ -7,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 function setRP(type, tabTitle, tabURL) {
-	var r = /:\/\/(.[^/]+)/;
+	let r = /:\/\/(.[^/]+)/;
 	if (tabURL.split("").length > 100) {
 		tabURL = `https://${tabURL.match(r)[1]}`;
 	}
@@ -19,9 +20,9 @@ function setRP(type, tabTitle, tabURL) {
 		client.setActivity({
 			details: tabTitle,
 			state: tabURL,
-			// startTimestamp: moment(new Date()).add(parse("-0s"), "ms").toDate(),
-			largeImageKey: "firefox-large",
-			largeImageText: "Firefox",
+			startTimestamp: moment(new Date()).toDate(),
+			largeImageKey: "brave-large",
+			largeImageText: "Brave",
 			instance: false,
 		});
 	}
