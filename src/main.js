@@ -1,6 +1,6 @@
 const path = require("path");
 const { app, nativeImage, Menu, Tray } = require("electron");
-const express = require("./server.js");
+const rpcServer = require("./server.js");
 
 let tray;
 
@@ -19,8 +19,8 @@ app.on("ready", () => {
 		{
 			label: "Quit",
 			click: () => {
-				express.client.destroy();
-				express.server.close();
+				rpcServer.client.destroy();
+				rpcServer.server.close();
 				app.quit();
 				console.log("Exited cleanly");
 			},

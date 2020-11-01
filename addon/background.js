@@ -7,14 +7,13 @@ let enabled = true;
 // }
 
 async function postData(url, data) {
-	// Default options are marked with *
 	const response = await fetch(url, {
 		method: "POST",
 		mode: "cors",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(data)
+		body: JSON.stringify(data),
 	});
 	return response.json();
 }
@@ -22,29 +21,16 @@ async function postData(url, data) {
 function sendData(tab) {
 	if (enabled) {
 		if (tab.incognito) return;
-		// let xhr = new XMLHttpRequest();
-		// xhr.open("POST", "http://localhost:6553/setRP", true);
-		// xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		// xhr.send();
 		postData("http://localhost:6553/setRP", {
 			tabURL: tab.url,
-			tabTitle: tab.title
+			tabTitle: tab.title,
 		}).then((data) => {
-			console.log(data); // JSON data parsed by `data.json()` call
+			console.log(data);
 		});
 	} else if (!enabled) {
-		// let xhr = new XMLHttpRequest();
-		// xhr.open("POST", "http://localhost:6553/setRP", true);
-		// xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-		// xhr.send(
-		// 	JSON.stringify({
-		// 		tabURL: "https://github.com/Chronomly/firefox-discord",
-		// 		tabTitle: "Paused",
-		// 	})
-		// );
 		postData("http://localhost:6553/setRP", {
 			tabURL: "https://github.com/Chronomly/firefox-discord",
-			tabTitle: "Paused"
+			tabTitle: "Paused",
 		}).then((data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 		});
@@ -86,7 +72,7 @@ function handleClick() {
 				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png",
 			},
 		});
-		return enabled = false;
+		return (enabled = false);
 	} else if (!enabled) {
 		browser.browserAction.setIcon({
 			path: {
@@ -94,7 +80,7 @@ function handleClick() {
 				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
 			},
 		});
-		return enabled = true;
+		return (enabled = true);
 	}
 }
 
