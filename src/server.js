@@ -7,33 +7,55 @@ const app = express();
 
 app.use(express.json());
 
-function setRP(type, tabTitle, tabURL) {
+function setRP(tabData) {
 	let r = /:\/\/(.[^/]+)/;
-	if (tabURL.split("").length > 100) {
-		tabURL = `https://${tabURL.match(r)[1]}`;
+	if (tabData.tabURL.split("").length > 100) {
+		tabData.tabURL = `https://${tabData.tabURL.match(r)[1]}`;
 	}
-	if (tabTitle.split("").length > 128) {
-		tabTitle = `https://${tabTitle.match(r)[1]}`;
+	if (tabData.tabTitle.split("").length > 128) {
+		tabData.tabTitle = `https://${tabData.tabTitle.match(r)[1]}`;
 	}
 
-	if (type === "normal") {
-		client.setActivity({
-			details: tabTitle,
-			state: tabURL,
-			startTimestamp: moment(new Date()).toDate(),
-			largeImageKey: "brave-large",
-			largeImageText: "Brave",
-			instance: false,
-		});
+	if (tabData.browserBrand === "Firefox") {
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Firefox";
+	} else if (tabData.browserBrand === "Brave") {
+		tabData.browserIcon = "brave-large";
+		tabData.browserName = "Brave Web Browser";
+	} else if (tabData.browserBrand === "Chromium") {
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Chromium";
+	} else if (tabData.browserBrand === "Chrome") {
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Google Chrome";
+	} else {
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Error";
 	}
+
+	client.setActivity({
+		details: tabData.tabTitle,
+		state: tabData.tabURL,
+		startTimestamp: moment(new Date()).toDate(),
+		largeImageKey: tabData.browserIcon,
+		largeImageText: tabData.browserName,
+		instance: false,
+	});
 }
 
 app.post("/setRP", (req, res) => {
+	/* Deprecated Code
 	if (req.body.iconName) {
 		setRP("normal", req.body.tabTitle, req.body.tabURL, req.body.iconName);
 	} else {
-		setRP("normal", req.body.tabTitle, req.body.tabURL);
-	}
+	*/
+	setRP({
+		tabTitle: req.body.tabTitle,
+		tabURL: req.body.tabURL,
+		browserBrand: req.body.browserBrand,
+	});
+	console.log(req.body);
+	// }
 	res.end();
 });
 
@@ -43,8 +65,11 @@ exports.client = client;
 exports.server = server;
 
 client.on("ready", () => {
-	console.log("RPC Client Ready");
-	setRP("normal", "Idle", "No activity yet");
+	console.log("RPC Client + Express Server Ready");
+	setRP({
+		tabTitle: "Idle",
+		tabURL: "No Activity Yet",
+	});
 });
 
 client

@@ -18,21 +18,19 @@ async function postData(url, data) {
 	return response.json();
 }
 
-function testCompare(url, url) {
-	if(url === url) return true;
-}
-
-function testCompareNot(url, url) {
-	if(url !== url) return false;
-}
-
-
 function sendData(tab) {
+	let browserBrand;
+
+	if (navigator.brave.isBrave()) {
+		browserBrand = "Brave";
+	}
+
 	if (enabled) {
 		if (tab.incognito) return;
 		postData("http://localhost:6553/setRP", {
 			tabURL: tab.url,
 			tabTitle: tab.title,
+			browserBrand: browserBrand
 		}).then((data) => {
 			console.log(data);
 		});
@@ -40,6 +38,7 @@ function sendData(tab) {
 		postData("http://localhost:6553/setRP", {
 			tabURL: "https://github.com/Chronomly/firefox-discord",
 			tabTitle: "Paused",
+			browserBrand: browserBrand
 		}).then((data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 		});
