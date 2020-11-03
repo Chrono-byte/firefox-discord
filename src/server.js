@@ -44,18 +44,12 @@ function setRP(tabData) {
 }
 
 app.post("/setRP", (req, res) => {
-	/* Deprecated Code
-	if (req.body.iconName) {
-		setRP("normal", req.body.tabTitle, req.body.tabURL, req.body.iconName);
-	} else {
-	*/
 	setRP({
 		tabTitle: req.body.tabTitle,
 		tabURL: req.body.tabURL,
 		browserBrand: req.body.browserBrand
 	});
 	console.log(req.body);
-	// }
 	res.end();
 });
 
