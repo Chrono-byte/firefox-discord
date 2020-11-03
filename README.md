@@ -1,4 +1,5 @@
 # Discord RPC for Firefox
+
 ![Build/release](https://github.com/Chronomly/firefox-discord/workflows/Build/release/badge.svg)
 
 Discord RPC for Firefox (formerly called firefox-discord) allows you to advertise what browser tab you currently have focused on Discord.
@@ -12,8 +13,8 @@ Discord RPC for Firefox (formerly called firefox-discord) allows you to advertis
 
 ## Authors
 
-* **Chronomly** - *Main Developer* - [GitHub](https://github.com/chronomly)
-* **Guerra24** - *Developer* - [GitHub](https://github.com/Guerra24)
+- **Chronomly** - _Main Developer_ - [GitHub](https://github.com/chronomly)
+- **Guerra24** - _Developer_ - [GitHub](https://github.com/Guerra24)
 
 Also, check the list of [contributors](https://github.com/Chronomly/firefox-discord/contributors) who did minor contributions.
 

@@ -1,5 +1,5 @@
 const path = require("path");
-const { app, nativeImage, Menu, Tray } = require("electron");
+const {app, nativeImage, Menu, Tray} = require("electron");
 const rpcServer = require("./server.js");
 
 let tray;
@@ -8,14 +8,14 @@ app.on("ready", () => {
 	let contextMenu = Menu.buildFromTemplate([
 		{
 			label: "Discord RPC for Firefox",
-			enabled: "false",
+			enabled: "false"
 			// icon: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
 		},
 		{
 			label: "By Chronomly",
-			enabled: "false",
+			enabled: "false"
 		},
-		{ type: "separator" },
+		{type: "separator"},
 		{
 			label: "Quit",
 			click: () => {
@@ -23,13 +23,10 @@ app.on("ready", () => {
 				rpcServer.server.close();
 				app.quit();
 				console.log("Exited cleanly");
-			},
-		},
+			}
+		}
 	]);
-	const iconPath = path.join(
-		__dirname,
-		"assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
-	);
+	const iconPath = path.join(__dirname, "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png");
 	const trayIcon = nativeImage.createFromPath(iconPath);
 
 	tray = new Tray(trayIcon);

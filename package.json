@@ -29,7 +29,9 @@
 		"electron": "^7.2.4",
 		"electron-builder": "^22.3.2",
 		"eslint": "^6.8.0",
-		"eslint-plugin-json-files": "^0.8.0"
+		"eslint-config-prettier": "^6.15.0",
+		"eslint-plugin-json-files": "^0.8.0",
+		"prettier": "2.1.2"
 	},
 	"build": {
 		"appId": "org.disilla.fd-rpc",

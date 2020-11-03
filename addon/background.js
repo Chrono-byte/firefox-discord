@@ -11,9 +11,9 @@ async function postData(url, data) {
 		method: "POST",
 		mode: "cors",
 		headers: {
-			"Content-Type": "application/json",
+			"Content-Type": "application/json"
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(data)
 	});
 	return response.json();
 }
@@ -31,7 +31,7 @@ function sendData(tab) {
 			tabURL: tab.url,
 			tabTitle: tab.title,
 			browserBrand: browserBrand
-		}).then((data) => {
+		}).then(data => {
 			console.log(data);
 		});
 	} else if (!enabled) {
@@ -39,7 +39,7 @@ function sendData(tab) {
 			tabURL: "https://github.com/Chronomly/firefox-discord",
 			tabTitle: "Paused",
 			browserBrand: browserBrand
-		}).then((data) => {
+		}).then(data => {
 			console.log(data); // JSON data parsed by `data.json()` call
 		});
 	}
@@ -64,7 +64,7 @@ function handleFocus(windowId) {
 	let wq = browser.windows.get(windowId);
 	wq.then(function (win) {
 		if (win.focused) {
-			let tabq = browser.tabs.query({ active: true, currentWindow: true });
+			let tabq = browser.tabs.query({active: true, currentWindow: true});
 			tabq.then(function (rtab) {
 				sendData(rtab[0]);
 			});
@@ -77,16 +77,16 @@ function handleClick() {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
-				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png",
-			},
+				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
+			}
 		});
 		return (enabled = false);
 	} else if (!enabled) {
 		browser.browserAction.setIcon({
 			path: {
 				36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
-				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
-			},
+				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
+			}
 		});
 		return (enabled = true);
 	}

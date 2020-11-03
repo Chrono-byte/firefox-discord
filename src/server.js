@@ -2,7 +2,7 @@ const express = require("express");
 const DiscordRPC = require("discord-rpc");
 const moment = require("moment");
 
-const client = new DiscordRPC.Client({ transport: "ipc" });
+const client = new DiscordRPC.Client({transport: "ipc"});
 const app = express();
 
 app.use(express.json());
@@ -39,7 +39,7 @@ function setRP(tabData) {
 		startTimestamp: moment(new Date()).toDate(),
 		largeImageKey: tabData.browserIcon,
 		largeImageText: tabData.browserName,
-		instance: false,
+		instance: false
 	});
 }
 
@@ -52,7 +52,7 @@ app.post("/setRP", (req, res) => {
 	setRP({
 		tabTitle: req.body.tabTitle,
 		tabURL: req.body.tabURL,
-		browserBrand: req.body.browserBrand,
+		browserBrand: req.body.browserBrand
 	});
 	console.log(req.body);
 	// }
@@ -68,10 +68,8 @@ client.on("ready", () => {
 	console.log("RPC Client + Express Server Ready");
 	setRP({
 		tabTitle: "Idle",
-		tabURL: "No Activity Yet",
+		tabURL: "No Activity Yet"
 	});
 });
 
-client
-	.login({ clientId: "673201865772761098", clientSecret: "abcdef123" })
-	.catch(console.error);
+client.login({clientId: "673201865772761098", clientSecret: "abcdef123"}).catch(console.error);
