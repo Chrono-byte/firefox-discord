@@ -16,6 +16,22 @@ function setRP(tabData) {
 		tabData.tabTitle = `https://${tabData.tabTitle.match(r)[1]}`;
 	}
 
+	switch (tabData.browserBrand) {
+		case "Firefox":
+			tabData.browserIcon = "firefox-large";
+			tabData.browserName = "Firefox";
+			break;
+		case "Brave":
+			tabData.browserIcon = "brave-large";
+			tabData.browserName = "Brave Web Browser";
+			break;
+
+		default:
+			tabData.browserIcon = "firefox-large";
+			tabData.browserName = "Error";
+			break;
+	}
+
 	if (tabData.browserBrand === "Firefox") {
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Firefox";
