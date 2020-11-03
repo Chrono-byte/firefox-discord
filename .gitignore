@@ -74,4 +74,3 @@ addon.crx
 dist/*
 build.sh
 
-detect-browser-5.2.0.zip
