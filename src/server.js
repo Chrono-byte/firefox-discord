@@ -52,7 +52,7 @@ function setRP(tabData) {
 	client.setActivity({
 		details: tabData.tabTitle,
 		state: tabData.tabURL,
-		startTimestamp: moment(new Date()).toDate(),
+		startTimestamp: new Date().getTime(),
 		largeImageKey: tabData.browserIcon,
 		largeImageText: tabData.browserName,
 		instance: false
