@@ -1,6 +1,11 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 let enabled = true;
+import * as detect from "./detect-browser/index";
+
+// function onError(error) {
+// 	console.log(`Error: ${error}`);
+// }
 
 async function postData(url, data) {
 	const response = await fetch(url, {
