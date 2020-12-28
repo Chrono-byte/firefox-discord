@@ -1,6 +1,7 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 let enabled = true;
+import * as detect from "./detect-browser/index";
 
 // function onError(error) {
 // 	console.log(`Error: ${error}`);
@@ -21,13 +22,11 @@ async function postData(url, data) {
 function sendData(tab) {
 	let browserBrand;
 
-	if (navigator.brave.isBrave()) {
-		browserBrand = "Brave";
-	}
+	browserBrand = detect().name;
 
 	if (enabled) {
 		if (tab.incognito) return;
-		postData("http://localhost:6553/setRP", {
+		postData("http://localhost:7070/setRP", {
 			tabURL: tab.url,
 			tabTitle: tab.title,
 			browserBrand: browserBrand
@@ -35,7 +34,7 @@ function sendData(tab) {
 			console.log(data);
 		});
 	} else if (!enabled) {
-		postData("http://localhost:6553/setRP", {
+		postData("http://localhost:7070/setRP", {
 			tabURL: "https://github.com/Chronomly/firefox-discord",
 			tabTitle: "Paused",
 			browserBrand: browserBrand

@@ -1,6 +1,5 @@
 const express = require("express");
 const DiscordRPC = require("discord-rpc");
-const moment = require("moment");
 
 const client = new DiscordRPC.Client({transport: "ipc"});
 const app = express();
@@ -17,31 +16,31 @@ function setRP(tabData) {
 	}
 
 	switch (tabData.browserBrand) {
-		case "Firefox":
-			tabData.browserIcon = "firefox-large";
-			tabData.browserName = "Firefox";
-			break;
-		case "Brave":
-			tabData.browserIcon = "brave-large";
-			tabData.browserName = "Brave Web Browser";
-			break;
-
-		default:
-			tabData.browserIcon = "firefox-large";
-			tabData.browserName = "Error";
-			break;
-	}
-
-	if (tabData.browserBrand === "Firefox") {
+	case "Firefox":
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Firefox";
-	} else if (tabData.browserBrand === "Brave") {
+		break;
+	case "Brave":
 		tabData.browserIcon = "brave-large";
 		tabData.browserName = "Brave Web Browser";
-	} else if (tabData.browserBrand === "Chromium") {
+		break;
+
+	default:
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Error";
+		break;
+	}
+
+	if (tabData.browserBrand === "firefox") {
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Firefox";
+	} else if (tabData.browserBrand === "brave") {
+		tabData.browserIcon = "brave-large";
+		tabData.browserName = "Brave Web Browser";
+	} else if (tabData.browserBrand === "chromium") {
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Chromium";
-	} else if (tabData.browserBrand === "Chrome") {
+	} else if (tabData.browserBrand === "chrome") {
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Google Chrome";
 	} else {
@@ -69,7 +68,7 @@ app.post("/setRP", (req, res) => {
 	res.end();
 });
 
-const server = app.listen(6553, () => console.log("Express port: 6553"));
+const server = app.listen(7070, () => console.log("Express port: 7070"));
 
 exports.client = client;
 exports.server = server;

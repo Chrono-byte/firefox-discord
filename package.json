@@ -19,10 +19,8 @@
 		"start": "electron ."
 	},
 	"dependencies": {
-		"detect-browser": "^5.2.0",
 		"discord-rpc": "^3.1.0",
 		"express": "^4.16.2",
-		"moment": "^2.29.1",
 		"register-scheme": "github:devsnek/node-register-scheme"
 	},
 	"devDependencies": {
