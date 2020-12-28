@@ -2,10 +2,6 @@
 /* eslint-disable no-undef */
 let enabled = true;
 
-// function onError(error) {
-// 	console.log(`Error: ${error}`);
-// }
-
 async function postData(url, data) {
 	const response = await fetch(url, {
 		method: "POST",
