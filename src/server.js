@@ -24,28 +24,18 @@ function setRP(tabData) {
 		tabData.browserIcon = "brave-large";
 		tabData.browserName = "Brave Web Browser";
 		break;
-
+	case "Chrome":
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Google Chrome";
+		break;
+	case "Chromium":
+		tabData.browserIcon = "firefox-large";
+		tabData.browserName = "Chromium";
+		break;
 	default:
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Error";
 		break;
-	}
-
-	if (tabData.browserBrand === "firefox") {
-		tabData.browserIcon = "firefox-large";
-		tabData.browserName = "Firefox";
-	} else if (tabData.browserBrand === "brave") {
-		tabData.browserIcon = "brave-large";
-		tabData.browserName = "Brave Web Browser";
-	} else if (tabData.browserBrand === "chromium") {
-		tabData.browserIcon = "firefox-large";
-		tabData.browserName = "Chromium";
-	} else if (tabData.browserBrand === "chrome") {
-		tabData.browserIcon = "firefox-large";
-		tabData.browserName = "Google Chrome";
-	} else {
-		tabData.browserIcon = "firefox-large";
-		tabData.browserName = "Error";
 	}
 
 	client.setActivity({
