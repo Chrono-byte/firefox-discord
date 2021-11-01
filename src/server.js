@@ -15,23 +15,24 @@ function setRP(tabData) {
 		tabData.tabTitle = `https://${tabData.tabTitle.match(r)[1]}`;
 	}
 
-	switch (tabData.browserBrand) {
-	case "Firefox":
+	switch (tabData.browserBrand && tabData.browserBrand.name) {
+	case "firefox":
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Firefox";
 		break;
-	case "Brave":
+	case "brave":
 		tabData.browserIcon = "brave-large";
 		tabData.browserName = "Brave Web Browser";
 		break;
-	case "Chrome":
+	case "chrome":
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Google Chrome";
 		break;
-	case "Chromium":
+	case "chromium":
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Chromium";
 		break;
+
 	default:
 		tabData.browserIcon = "firefox-large";
 		tabData.browserName = "Error";
@@ -67,8 +68,9 @@ client.on("ready", () => {
 	console.log("RPC Client + Express Server Ready");
 	setRP({
 		tabTitle: "Idle",
-		tabURL: "No Activity Yet"
+		tabURL: "No Activity Yet",
+		browserBrand: "Firefox"
 	});
 });
 
-client.login({clientId: "673201865772761098", clientSecret: "abcdef123"}).catch(console.error);
+client.login({clientId: "673201865772761098"/*, clientSecret: "abcdef123"*/}).catch(console.error);

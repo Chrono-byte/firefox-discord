@@ -85,6 +85,7 @@ function handleClick() {
 	// 	});
 	// 	return (enabled = true);
 	// }
+
 	const blackOrWhite = enabled ? "black" : "white";
 
 	browser.browserAction.setIcon({

@@ -7,10 +7,16 @@
 		"96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
 		"36": "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png"
 	},
-	"permissions": ["<all_urls>", "tabs", "http://localhost:6553/*"],
+	"permissions": ["<all_urls>", "tabs", "http://localhost:7070/*"],
 	"background": {
 		"scripts": ["dist/bowser-polyfill.min.js", "background.js"]
 	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content-script.js", "detect-browser.js"]
+		}
+	],
 	"browser_action": {
 		"default_icon": {
 			"96": "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png",
