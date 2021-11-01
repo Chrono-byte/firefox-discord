@@ -21,7 +21,7 @@ app.on("ready", () => {
 				rpcServer.client.destroy();
 				rpcServer.server.close();
 				app.quit();
-				console.log("Exited cleanly");
+				console.log("Exited");
 			}
 		}
 	]);
