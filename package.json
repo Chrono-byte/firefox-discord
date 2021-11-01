@@ -25,7 +25,7 @@
 		"register-scheme": "github:devsnek/node-register-scheme"
 	},
 	"devDependencies": {
-		"electron": "^7.2.4",
+		"electron": "^11.5.0",
 		"electron-builder": "^22.3.2",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.15.0",
