@@ -1,11 +1,7 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 let enabled = true;
-import * as detect from "./detect-browser/index";
-
-// function onError(error) {
-// 	console.log(`Error: ${error}`);
-// }
+const detect = import("./detect-browser/index");
 
 async function postData(url, data) {
 	const response = await fetch(url, {
@@ -22,7 +18,7 @@ async function postData(url, data) {
 function sendData(tab) {
 	let browserBrand;
 
-	browserBrand = detect().name;
+	browserBrand = detect();
 
 	if (enabled) {
 		if (tab.incognito) return;
@@ -72,23 +68,33 @@ function handleFocus(windowId) {
 }
 
 function handleClick() {
-	if (enabled) {
-		browser.browserAction.setIcon({
-			path: {
-				36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
-				96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
-			}
-		});
-		return (enabled = false);
-	} else if (!enabled) {
-		browser.browserAction.setIcon({
-			path: {
-				36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
-				96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
-			}
-		});
-		return (enabled = true);
-	}
+	// if (enabled) {
+	// 	browser.browserAction.setIcon({
+	// 		path: {
+	// 			36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
+	// 			96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
+	// 		}
+	// 	});
+	// 	return (enabled = false);
+	// } else if (!enabled) {
+	// 	browser.browserAction.setIcon({
+	// 		path: {
+	// 			36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
+	// 			96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
+	// 		}
+	// 	});
+	// 	return (enabled = true);
+	// }
+	const blackOrWhite = enabled ? "black" : "white";
+
+	browser.browserAction.setIcon({
+		path: {
+			36: `assets/chat_bubble-${blackOrWhite}-18dp/2x/outline_chat_bubble_${blackOrWhite}_18dp.png`,
+			96: `assets/chat_bubble-${blackOrWhite}-48dp/2x/outline_chat_bubble_${blackOrWhite}_48dp.png`
+		}
+	});
+
+	return (enabled = !enabled);
 }
 
 browser.windows.onFocusChanged.addListener(handleFocus);
