@@ -13,7 +13,7 @@ Discord RPC for Firefox (formerly called firefox-discord) allows you to advertis
 
 ## Authors
 
-- **Chronomly** - _Main Developer_ - [GitHub](https://github.com/chronomly)
+- **Chrono** - _Main Developer_ - [GitHub](https://github.com/chronomly)
 - **Guerra24** - _Developer_ - [GitHub](https://github.com/Guerra24)
 
 Also, check the list of [contributors](https://github.com/Chronomly/firefox-discord/contributors) who did minor contributions.
