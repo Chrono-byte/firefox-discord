@@ -1,4 +1,10 @@
 // type="module";
-
-const detect = import("./detect-browser/index");
-console.log(detect().name);
+const { detect } = require("./detect-browser/es");
+const browser = detect();
+if (browser) {
+	console.log([
+		browser.name,
+		browser.version,
+		browser.os
+	]);
+}
