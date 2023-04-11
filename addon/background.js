@@ -1,39 +1,70 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 let enabled = true;
-const detect = import("./detect-browser/index");
 
-async function postData(url, data) {
+// function for figuring out what browser is being used
+function getBrowserInfo() {
+	// detect firefox
+	if(browser.runtime.getBrowserInfo) {
+		return browser.runtime.getBrowserInfo().then(info => {
+			return info.name;
+		});
+	}
+
+	// detect chrome
+	return browser.management.getSelf().then(info => {
+		return info.name;
+	});
+}
+
+// function for getting the current tab count
+function getTabCount() {
+	return browser.tabs.query({}).then(tabs => tabs.length);
+}
+
+// function for getting the timestamp of the oldest tab
+let oldestTab;
+function getLongestTabTimestamp() {
+	return browser.tabs.query({}).then(tabs => {
+		oldestTab = tabs[0];
+		for (let i = 1; i < tabs.length; i++) {
+			if (tabs[i].lastAccessed < oldestTab.lastAccessed) {
+				oldestTab = tabs[i];
+			}
+		}
+		return oldestTab.lastAccessed;
+	});
+}
+
+async function postData(url = "", data = {}) {
+	if(enabled == false) return;
+
 	const response = await fetch(url, {
 		method: "POST",
 		mode: "cors",
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify(data)
+		body: JSON.stringify({
+			tabCount: await getTabCount(),
+			longestTabTimestamp: await getLongestTabTimestamp(),
+			browserBrand: await getBrowserInfo()
+		})
 	});
 	return response.json();
 }
 
 function sendData(tab) {
-	let browserBrand;
-
-	browserBrand = detect();
-
 	if (enabled) {
 		if (tab.incognito) return;
 		postData("http://localhost:7070/setRP", {
 			tabURL: tab.url,
 			tabTitle: tab.title,
-			browserBrand: browserBrand
-		}).then(data => {
-			console.log(data);
 		});
 	} else if (!enabled) {
 		postData("http://localhost:7070/setRP", {
 			tabURL: "https://github.com/Chronomly/firefox-discord",
 			tabTitle: "Paused",
-			browserBrand: browserBrand
 		}).then(data => {
 			console.log(data); // JSON data parsed by `data.json()` call
 		});
@@ -68,24 +99,6 @@ function handleFocus(windowId) {
 }
 
 function handleClick() {
-	// if (enabled) {
-	// 	browser.browserAction.setIcon({
-	// 		path: {
-	// 			36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
-	// 			96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
-	// 		}
-	// 	});
-	// 	return (enabled = false);
-	// } else if (!enabled) {
-	// 	browser.browserAction.setIcon({
-	// 		path: {
-	// 			36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
-	// 			96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
-	// 		}
-	// 	});
-	// 	return (enabled = true);
-	// }
-
 	const blackOrWhite = enabled ? "black" : "white";
 
 	browser.browserAction.setIcon({
@@ -101,4 +114,6 @@ function handleClick() {
 browser.windows.onFocusChanged.addListener(handleFocus);
 browser.tabs.onUpdated.addListener(handleUpdated);
 browser.tabs.onActivated.addListener(handleActivated);
+
+// handle disable toggle
 browser.browserAction.onClicked.addListener(handleClick);
