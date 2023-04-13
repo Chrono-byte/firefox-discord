@@ -10,13 +10,14 @@ module.exports = {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
     },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-rpm',
-      config: {},
-    },
+		// appimage
+		{
+			name: '@electron-forge/maker-appimage',
+			config: {
+				arch: 'x64',
+				icon: 'src/assets/icons/icon.png',
+				categories: ['Utility']
+			}
+		}
   ],
 };

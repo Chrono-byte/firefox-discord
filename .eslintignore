@@ -1,3 +1,13 @@
 *.config.js
 node_modules/
 *.min.js
+
+# Ignore all files in the dist/ directory
+dist/
+out/
+
+# Ignore all files in the build/ directory
+build/
+
+# Ignore all files in the addon/ directory
+addon/
