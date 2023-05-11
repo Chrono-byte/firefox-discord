@@ -1,56 +1,42 @@
 {
-	"name": "fd-rpc",
-	"version": "2.1.2",
-	"description": "Discord RPC for Firefox",
-	"keywords": [],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Chronomly/firefox-discord"
-	},
-	"license": "MPL-2.0",
-	"author": "Chronomly",
-	"main": "src/main.js",
-	"scripts": {
-		"dist": "electron-builder",
-		"dist:addon": "./build.sh",
-		"lint": "eslint . --ext js,json",
-		"lint:fix": "eslint . --ext js,json --fix",
-		"pack": "electron-builder --dir",
-		"start": "electron ."
-	},
-	"dependencies": {
-		"detect-browser": "^5.2.0",
-		"discord-rpc": "^3.1.0",
-		"express": "^4.16.2",
-		"register-scheme": "github:devsnek/node-register-scheme"
-	},
-	"devDependencies": {
-		"electron": "^15.5.5",
-		"electron-builder": "^22.3.2",
-		"eslint": "^6.8.0",
-		"eslint-config-prettier": "^6.15.0",
-		"eslint-plugin-json-files": "^0.8.0",
-		"prettier": "2.1.2"
-	},
-	"build": {
-		"appId": "org.disilla.fd-rpc",
-		"linux": {
-			"target": [
-				"AppImage"
-			],
-			"maintainer": "me@disilla.org",
-			"category": "Utility"
-		},
-		"win": {
-			"target": "msi"
-		},
-		"files": [
-			"**/*",
-			"assets/**/**",
-			"src/**/**",
-			"!addon/**/*",
-			"!.clang-format",
-			"!README.md"
-		]
-	}
+  "name": "fd-rpc",
+  "version": "2.1.2",
+  "description": "Discord RPC for Firefox",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chronomly/firefox-discord"
+  },
+  "license": "MPL-2.0",
+  "author": "Chronomly",
+  "main": "src/main.js",
+  "scripts": {
+    "dist": "electron-builder",
+    "dist:addon": "./build.sh",
+    "lint": "eslint . --ext js,json",
+    "lint:fix": "eslint . --ext js,json --fix",
+    "pack": "electron-builder --dir",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "dependencies": {
+    "detect-browser": "^5.2.0",
+    "discord-rpc": "^4.0.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.16.2",
+    "register-scheme": "github:devsnek/node-register-scheme"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1",
+    "@electron-forge/maker-squirrel": "^6.1.1",
+    "@electron-forge/maker-zip": "^6.1.1",
+    "electron": "^15.5.5",
+    "electron-forge-maker-appimage": "^24.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-json-files": "^0.8.0",
+    "prettier": "2.1.2"
+  }
 }

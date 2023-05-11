@@ -73,4 +73,5 @@ addon.crx
 # Build Stuff
 dist/*
 build.sh
-
+out/*
+addon/web-ext-artifacts/

@@ -4,35 +4,42 @@
 		"es6": true,
 		"node": true
 	},
-	"extends": ["eslint:recommended"],
+	"extends": [
+		"eslint:recommended"//,
+		// "plugin:json/recommended"
+
+	],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
-	"plugins": ["json-files"],
+	"plugins": [],
 	"parserOptions": {
 		"ecmaVersion": 2020
 	},
 	"rules": {
-		"json-files/sort-package-json": 2,
-		"indent": ["error", "tab"],
-		"linebreak-style": ["error", "unix"],
-		"quotes": ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": false}],
-		"semi": ["error", "always"],
-		"lines-around-comment": [
+		"indent": [
 			"error",
+			"tab",
 			{
-				"beforeBlockComment": true,
-				"afterBlockComment": true,
-				"beforeLineComment": true,
-				"afterLineComment": true,
-				"allowBlockStart": true,
-				"allowBlockEnd": true,
-				"allowObjectStart": true,
-				"allowObjectEnd": true,
-				"allowArrayStart": true,
-				"allowArrayEnd": true
+				"SwitchCase": 1
 			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"double",
+			{
+				"avoidEscape": true,
+				"allowTemplateLiterals": false
+			}
+		],
+		"semi": [
+			"error",
+			"always"
 		]
 	}
 }
