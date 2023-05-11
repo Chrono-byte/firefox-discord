@@ -1,104 +1,137 @@
+"use strict";
 /* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
 let enabled = true;
-const detect = import("./detect-browser/index");
 
-async function postData(url, data) {
-	const response = await fetch(url, {
-		method: "POST",
-		mode: "cors",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(data)
-	});
-	return response.json();
+async function getBrowserInfo() {
+	let info = await browser.runtime.getBrowserInfo();
+	info = info.name.toLowerCase();
+	return info;
 }
 
-function sendData(tab) {
-	let browserBrand;
+// function for getting the current tab count
+function getTabCount() {
+	return browser.tabs.query({}).then(tabs => tabs.length);
+}
 
-	browserBrand = detect();
+// function for getting the timestamp of the oldest tab
+let oldestTab;
+function getLongestTabTimestamp() {
+	return browser.tabs.query({}).then(tabs => {
+		oldestTab = tabs[0];
+		for (let i = 1; i < tabs.length; i++) {
+			if (tabs[i].lastAccessed < oldestTab.lastAccessed) {
+				oldestTab = tabs[i];
+			}
+		}
+		return oldestTab.lastAccessed;
+	});
+}
 
+async function sendData() {
+	let tabCount = await getTabCount()
+
+	// get the current tab
+	const tab = await browser.tabs.query({ active: true, currentWindow: true });
+	// if (tab.incognito) return;
+
+	console.log("Sending data to the server...");
+
+	// send the data to the server
 	if (enabled) {
-		if (tab.incognito) return;
-		postData("http://localhost:7070/setRP", {
-			tabURL: tab.url,
-			tabTitle: tab.title,
-			browserBrand: browserBrand
-		}).then(data => {
-			console.log(data);
+		console.log("Discord Rich Presence is enabled.");
+
+		await fetch("http://localhost:7070/setRP", {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				tabCount: await getTabCount(),
+				longestTabTimestamp: await getLongestTabTimestamp(),
+				browserBrand: await getBrowserInfo()
+			})
+		}).then(response => {
+			if (response.status == 200) {
+				return true;
+			} else {
+				return response.status;
+			}
+		}).catch(err => {
+			console.log(err);
 		});
 	} else if (!enabled) {
-		postData("http://localhost:7070/setRP", {
-			tabURL: "https://github.com/Chronomly/firefox-discord",
-			tabTitle: "Paused",
-			browserBrand: browserBrand
-		}).then(data => {
-			console.log(data); // JSON data parsed by `data.json()` call
+		console.log("Discord Rich Presence is disabled.");
+
+		await fetch("http://localhost:7070/setRP/internal", {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				tabURL: "https://github.com/Chronomly/firefox-discord",
+				tabTitle: "Paused",
+				browserBrand: await getBrowserInfo()
+			})
+		}).then(response => {
+			if (response.status == 200) {
+				return true;
+			} else {
+				return response.status;
+			}
+		}).catch(err => {
+			console.log(err);
 		});
 	}
-}
 
-function handleActivated(activeInfo) {
-	let tabq = browser.tabs.get(activeInfo.tabId);
-	tabq.then(function (tab) {
-		sendData(tab);
-	});
-}
-
-function handleUpdated(tabId) {
-	let tabq = browser.tabs.get(tabId);
-	tabq.then(function (tab) {
-		if (tab.active) sendData(tab);
-	});
-}
-
-function handleFocus(windowId) {
-	if (windowId < 0) return;
-	let wq = browser.windows.get(windowId);
-	wq.then(function (win) {
-		if (win.focused) {
-			let tabq = browser.tabs.query({active: true, currentWindow: true});
-			tabq.then(function (rtab) {
-				sendData(rtab[0]);
-			});
-		}
-	});
+	console.log(tabCount);
 }
 
 function handleClick() {
-	// if (enabled) {
-	// 	browser.browserAction.setIcon({
-	// 		path: {
-	// 			36: "assets/chat_bubble-black-18dp/2x/outline_chat_bubble_black_18dp.png",
-	// 			96: "assets/chat_bubble-black-48dp/2x/outline_chat_bubble_black_48dp.png"
-	// 		}
-	// 	});
-	// 	return (enabled = false);
-	// } else if (!enabled) {
-	// 	browser.browserAction.setIcon({
-	// 		path: {
-	// 			36: "assets/chat_bubble-white-18dp/2x/outline_chat_bubble_white_18dp.png",
-	// 			96: "assets/chat_bubble-white-48dp/2x/outline_chat_bubble_white_48dp.png"
-	// 		}
-	// 	});
-	// 	return (enabled = true);
-	// }
-
 	const blackOrWhite = enabled ? "black" : "white";
 
-	browser.browserAction.setIcon({
+	// set icon color to indicate enabled/disabled
+	browser.action.setIcon({
 		path: {
 			36: `assets/chat_bubble-${blackOrWhite}-18dp/2x/outline_chat_bubble_${blackOrWhite}_18dp.png`,
 			96: `assets/chat_bubble-${blackOrWhite}-48dp/2x/outline_chat_bubble_${blackOrWhite}_48dp.png`
 		}
 	});
 
+	// set hover text to indicate enabled/disabled
+	browser.action.setTitle({
+		title: enabled ? "Discord Rich Presence is disabled" : "Discord Rich Presence is enabled"
+	});
+
 	return (enabled = !enabled);
 }
 
-browser.windows.onFocusChanged.addListener(handleFocus);
-browser.tabs.onUpdated.addListener(handleUpdated);
-browser.tabs.onActivated.addListener(handleActivated);
-browser.browserAction.onClicked.addListener(handleClick);
+// handle window focus
+browser.windows.onFocusChanged.addListener(() => {
+	sendData();
+});
+
+// handle tab updates
+browser.tabs.onUpdated.addListener(() => {
+	sendData();
+});
+
+// handle tab switching
+browser.tabs.onActivated.addListener(() => {
+	sendData();
+});
+
+// handle tab deletion
+browser.tabs.onRemoved.addListener(tabId => {
+	sendData();
+});
+
+// handle tab creation
+browser.tabs.onCreated.addListener(() => {
+	sendData();
+});
+
+// handle disable toggle
+browser.action.onClicked.addListener(handleClick);
